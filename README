@@ -24,6 +24,7 @@ http://localhost:8422/s/
 
 That is given that you do not configure remotestick-server to run on a different port.
 
-Currently the ui lists all configured devices and allows you to turn them on or off using the webbrowser.
+v0.1
+The UI lists all configured devices and allows you to turn them on or off using the webbrowser.
 
 
