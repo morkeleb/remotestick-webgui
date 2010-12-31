@@ -52,7 +52,7 @@
             };
             function dim(id, level){
                 $.ajax({
-                    url: "../devices/" + id + "/dim/level.xml"
+                    url: "../devices/" + id + "/dim/"+level+".xml"
                 });
             };
             function device(id, description, last_command, dimmer){
