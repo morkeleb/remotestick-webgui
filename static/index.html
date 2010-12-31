@@ -123,12 +123,8 @@
                 
             };
             
-            function addDevice(device, success){
-                $.post({
-                    url: "../devices.xml",
-                    data: device,
-                    success: success
-                })
+            function postDevice(device, success){
+                $.post("../devices.xml", device, success);
             };
         </script>
         <script type="text/javascript">
@@ -145,7 +141,7 @@
                 var name = $('#protocol option:selected').val();
                 var house = ((model == "codeswitch" || model == "bell") ? $('#house-alpha option:selected').val() : $('#house-numeric').val());
                 var unit = model == "bell" ? null : $("#unit").val();
-                addDevice({
+                postDevice({
                     id: id,
                     name: name,
                     protocol: protocol,
@@ -157,6 +153,7 @@
                         modal: true,
                         buttons: {
                             Ok: function(){
+								loadDevices();
                                 $(this).dialog("close");
                             }
                         }
@@ -224,7 +221,7 @@
         </script>
         </head>
         <body class="ui-widget-content">
-            <div id="addCompleted" title="Add Completed">
+            <div id="addCompleted" title="Add Completed" class="dialog">
                 <P>
                     Your devices has been added.
                 </P>
