@@ -22,6 +22,8 @@ Simply copy the content into the same directory as the remotestick server.
 The gui will then be available at:
 http://localhost:8422/s/
 
+in version 0.4 of the remotestick-server you need to specify "-f static" in the start up commandline arguments for the s/ directory to work. 
+
 That is given that you do not configure remotestick-server to run on a different port.
 
 v0.2
