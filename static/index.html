@@ -123,8 +123,12 @@
                 
             };
             
-            function addDevice(device){
-            
+            function addDevice(device, success){
+                $.post({
+                    url: "../devices.xml",
+                    data: device,
+                    success: success
+                })
             };
         </script>
         <script type="text/javascript">
@@ -148,6 +152,15 @@
                     model: model,
                     house: house,
                     unit: unit
+                }, function(){
+                    $("#addCompleted").dialog({
+                        modal: true,
+                        buttons: {
+                            Ok: function(){
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
                 });
             };
             
@@ -211,6 +224,14 @@
         </script>
         </head>
         <body class="ui-widget-content">
+            <div id="addCompleted" title="Add Completed">
+                <P>
+                    Your devices has been added.
+                </P>
+                <P>
+                    In the case of a self-learning device, press the learning button on the device and then the on button on the page to program the device.
+                </P>
+            </div>
             <div id="addDialog" title="Add device" class="dialog">
                 <p>
                     <form>
