@@ -25,7 +25,7 @@ body {
 }
 .device-list-border {
 	padding: 5pt;
-	border: 1pt solid grey;
+	border-bottom: 1pt solid grey;
 	font-size: 11pt;
 	
 }
