@@ -138,16 +138,24 @@
                 
                 var model = $('#model option:selected').val();
                 var protocol = $('#protocol option:selected').val();
-                var name = $('#protocol option:selected').val();
+                var name = $('#name').val();
                 var house = ((model == "codeswitch" || model == "bell") ? $('#house-alpha option:selected').val() : $('#house-numeric').val());
-                var unit = model == "bell" ? null : $("#unit").val();
+                var unit = model == "bell" ? null : $("#unitvalue").val();
+				var parameters = ""
+				
+				parameters = "house="+house;
+				
+				if(unit != null) 
+					parameters += " unit="+unit;
+						
+				
+					 
                 postDevice({
                     id: id,
                     name: name,
                     protocol: protocol,
                     model: model,
-                    house: house,
-                    unit: unit
+                    parameters: parameters
                 }, function(){
                     $("#addCompleted").dialog({
                         modal: true,
@@ -232,15 +240,13 @@
             <div id="addDialog" title="Add device" class="dialog">
                 <p>
                     <form>
-                        <input name='id' type="hidden" value="">
-                        </input>
                         <table>
                             <tr>
                                 <td>
                                     Name
                                 </td>
                                 <td>
-                                    <input name='name' type="text">
+                                    <input type="text" id="name">
                                     </input>
                                 </td>
                             </tr>
@@ -280,9 +286,9 @@
                                     House
                                 </td>
                                 <td>
-                                    <input name="house-numeric" type="text" id="house-numeric">
+                                    <input type="text" id="house-numeric">
                                     </input>
-                                    <select name="house-alpha" id="house-alpha">
+                                    <select id="house-alpha">
                                         <option>A</option>
                                         <option>B</option>
                                         <option>C</option>
@@ -307,7 +313,7 @@
                                     Unit
                                 </td>
                                 <td>
-                                    <input name="unit" type="text">
+                                    <input id="unitvalue" type="text">
                                     </input>
                                 </td>
                             </tr>
