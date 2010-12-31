@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Remotestick</title>
-		<meta name="viewport" content="width=device-width, user-scalable=no" />
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
         <script src="jquery-1.4.4.min.js">
         </script>
         <script src="microtemplates.js">
@@ -52,7 +52,7 @@
             };
             function dim(id, level){
                 $.ajax({
-                    url: "../devices/" + id + "/dim/"+level+".xml"
+                    url: "../devices/" + id + "/dim/" + level + ".xml"
                 });
             };
             function device(id, description, last_command, dimmer){
@@ -122,7 +122,6 @@
                 
                 
             };
-            
         </script>
         <script type="text/javascript">
             $(function(){
@@ -132,6 +131,19 @@
                     turnAllOff();
                 });
                 $("#addDevice").button();
+                $("#addDevice").click(function(){
+                    $("#addDialog").dialog({
+                        modal: true,
+                        buttons: {
+                            "Add": function(){
+                                
+                            },
+                            Cancel: function(){
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
+                });
                 $("#turnAllOn").button();
                 $("#turnAllOn").click(function(){
                     turnAllOn();
@@ -139,7 +151,12 @@
             });
         </script>
         </head>
-        <body>
+        <body class="ui-widget-content">
+            <div id="addDialog" title="Add device" class="dialog">
+                <p>
+                    
+                </p>
+            </div>
             <div class="header ui-widget-header">
                 <div class="left">
                     <div class="button" id="turnAllOff">
@@ -153,11 +170,11 @@
                 </div>
                 <div class="right">
                     <div class="button" id="turnAllOn">
-                    	
                         All On
                     </div>
                 </div>
-                <div class="headerbottom"></div>
+                <div class="headerbottom">
+                </div>
             </div>
             <div id="devices" class="device-list">
             </div>
