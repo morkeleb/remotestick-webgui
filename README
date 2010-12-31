@@ -28,6 +28,7 @@ v0.2
 Made better support for mobile browsers
 added buttons to turn on or off all devices
 added a add device button
+fixed an issue where the dimmer wouldnt dim
 
 v0.1
 The UI lists all configured devices and allows you to turn them on or off using the webbrowser.
