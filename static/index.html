@@ -122,10 +122,39 @@
                 
                 
             };
+			
+			function addDevice() {
+				
+			};
         </script>
         <script type="text/javascript">
+        	function updateModel() {
+				var model = $('#model option:selected').val();
+					switch(model) {
+						case "bell":
+							$("#unit").hide();
+							$("#house-alpha").show();
+							$("#house-numeric").hide();
+						
+						break;
+						
+						case "codeswitch":
+							$("#unit").show();
+							$("#house-alpha").show();
+							$("#house-numeric").hide();
+						break;
+						
+						default:
+							$("#unit").show();
+							$("#house-alpha").hide();
+							$("#house-numeric").show();
+						
+					}
+			};
+			
             $(function(){
                 loadDevices();
+				updateModel();
                 $("#turnAllOff").button();
                 $("#turnAllOff").click(function(){
                     turnAllOff();
@@ -134,13 +163,16 @@
                 $("#addDevice").click(function(){
                     $("#addDialog").dialog({
                         modal: true,
+						width: "250pt",
                         buttons: {
-                            "Add": function(){
-                            
-                            },
-                            Cancel: function(){
+							Cancel: function(){
                                 $(this).dialog("close");
+                            },
+                            "Add": function(){
+								addDevice();
+                               $(this).dialog("close");
                             }
+                            
                         }
                     });
                 });
@@ -148,6 +180,10 @@
                 $("#turnAllOn").click(function(){
                     turnAllOn();
                 });
+				
+				$("#model").change(function() {
+					updateModel();
+				})
             });
         </script>
         </head>
@@ -155,25 +191,78 @@
             <div id="addDialog" title="Add device" class="dialog">
                 <p>
                     <form>
-                        <input name='id' type="hidden" value=""></input>
-						Name <input name='name' type="text"></input>
-                        Protocol <select>
-                            <option>arctech</option>
-                            <option>brateck</option>
-                            <option>everflourish</option>
-							<option>ikea</option>
-							<option>risingsun</option>
-							<option>sartano</option>
-							<option>upm</option>
-							<option>waveman</option>
-							<option>x10</option>
-                        </select>
-						Model <select>
-							<option value="selflearning-switch">Selflearning on/off</option>
-							<option value="selflearning-dimmer">Selflearning dimmer</option>
-							<option value="bell">Bell</option>
-							<option value="codeswitch">Code switch</option>
-						</select>
+                        <input name='id' type="hidden" value="">
+                        </input>
+                        <table>
+                            <tr>
+                                <td>
+                                    Name
+                                </td>
+                                <td>
+                                    <input name='name' type="text">
+                                    </input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Protocol
+                                </td>
+                                <td>
+                                    <select id="protocol">
+                                        <option>arctech</option>
+                                        <option>brateck</option>
+                                        <option>everflourish</option>
+                                        <option>ikea</option>
+                                        <option>risingsun</option>
+                                        <option>sartano</option>
+                                        <option>upm</option>
+                                        <option>waveman</option>
+                                        <option>x10</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                	Model
+                                </td>
+                                <td>
+                                    <select id="model">
+                                        <option value="selflearning-switch">Selflearning on/off</option>
+                                        <option value="selflearning-dimmer">Selflearning dimmer</option>
+                                        <option value="bell">Bell</option>
+                                        <option value="codeswitch">Code switch</option>
+                                    </select>
+                                </td>
+                            </tr>
+							<tr>
+								<td>House</td>
+								<td>
+									<input name="house-numeric" type="text" id="house-numeric"></input>
+									<select name="house-alpha" id="house-alpha">
+                                        <option>A</option>
+                                        <option>B</option>
+                                        <option>C</option>
+                                        <option>D</option>
+                                        <option>E</option>
+                                        <option>F</option>
+                                        <option>G</option>
+                                        <option>H</option>
+                                        <option>I</option>
+                                        <option>J</option>
+                                        <option>K</option>
+                                        <option>L</option>
+                                        <option>M</option>
+                                        <option>N</option>
+                                        <option>O</option>
+                                        <option>P</option>
+                                    </select>
+								</td>
+							</tr>
+							<tr id="unit">
+								<td>Unit</td>
+								<td><input name="unit" type="text" ></input></td>
+							</tr>
+                        </table>
                     </form>
                 </p>
             </div>
