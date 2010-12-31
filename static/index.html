@@ -136,7 +136,7 @@
                         modal: true,
                         buttons: {
                             "Add": function(){
-                                
+                            
                             },
                             Cancel: function(){
                                 $(this).dialog("close");
@@ -154,7 +154,25 @@
         <body class="ui-widget-content">
             <div id="addDialog" title="Add device" class="dialog">
                 <p>
-                    
+                    <form>
+                        <input name='id' type="hidden" value=""></input>
+						Name <input name='name' type="text"></input>
+                        Protocol <select>
+                            <option>arctech</option>
+                            <option>brateck</option>
+                            <option>everflourish</option>
+							<option>ikea</option>
+							<option>risingsun</option>
+							<option>sartano</option>
+							<option>upm</option>
+							<option>waveman</option>
+							<option>x10</option>
+                        </select>
+						Type <select>
+							<option value="selflearning-switch">Selflearning on/off</option>
+							<option value="selflearning-dimmer">Selflearning dimmer</option>
+						</select>
+                    </form>
                 </p>
             </div>
             <div class="header ui-widget-header">
