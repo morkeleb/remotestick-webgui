@@ -122,39 +122,62 @@
                 
                 
             };
-			
-			function addDevice() {
-				
-			};
+            
+            function addDevice(device){
+            
+            };
         </script>
         <script type="text/javascript">
-        	function updateModel() {
-				var model = $('#model option:selected').val();
-					switch(model) {
-						case "bell":
-							$("#unit").hide();
-							$("#house-alpha").show();
-							$("#house-numeric").hide();
-						
-						break;
-						
-						case "codeswitch":
-							$("#unit").show();
-							$("#house-alpha").show();
-							$("#house-numeric").hide();
-						break;
-						
-						default:
-							$("#unit").show();
-							$("#house-alpha").hide();
-							$("#house-numeric").show();
-						
-					}
-			};
-			
+            function addDevice(){
+                var max = 0;
+                $(devices).each(function(index, value){
+                    if (value > max) 
+                        max = value;
+                });
+                var id = max++;
+                
+                var model = $('#model option:selected').val();
+                var protocol = $('#protocol option:selected').val();
+                var name = $('#protocol option:selected').val();
+                var house = ((model == "codeswitch" || model == "bell") ? $('#house-alpha option:selected').val() : $('#house-numeric').val());
+                var unit = model == "bell" ? null : $("#unit").val();
+                addDevice({
+                    id: id,
+                    name: name,
+                    protocol: protocol,
+                    model: model,
+                    house: house,
+                    unit: unit
+                });
+            };
+            
+            function updateModel(){
+                var model = $('#model option:selected').val();
+                switch (model) {
+                    case "bell":
+                        $("#unit").hide();
+                        $("#house-alpha").show();
+                        $("#house-numeric").hide();
+                        
+                        break;
+                        
+                    case "codeswitch":
+                        $("#unit").show();
+                        $("#house-alpha").show();
+                        $("#house-numeric").hide();
+                        break;
+                        
+                    default:
+                        $("#unit").show();
+                        $("#house-alpha").hide();
+                        $("#house-numeric").show();
+                        
+                }
+            };
+            
             $(function(){
                 loadDevices();
-				updateModel();
+                updateModel();
                 $("#turnAllOff").button();
                 $("#turnAllOff").click(function(){
                     turnAllOff();
@@ -163,14 +186,14 @@
                 $("#addDevice").click(function(){
                     $("#addDialog").dialog({
                         modal: true,
-						width: "250pt",
+                        width: "250pt",
                         buttons: {
-							Cancel: function(){
+                            Cancel: function(){
                                 $(this).dialog("close");
                             },
                             "Add": function(){
-								addDevice();
-                               $(this).dialog("close");
+                                addDevice();
+                                $(this).dialog("close");
                             }
                             
                         }
@@ -180,10 +203,10 @@
                 $("#turnAllOn").click(function(){
                     turnAllOn();
                 });
-				
-				$("#model").change(function() {
-					updateModel();
-				})
+                
+                $("#model").change(function(){
+                    updateModel();
+                })
             });
         </script>
         </head>
@@ -223,7 +246,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                	Model
+                                    Model
                                 </td>
                                 <td>
                                     <select id="model">
@@ -234,11 +257,14 @@
                                     </select>
                                 </td>
                             </tr>
-							<tr>
-								<td>House</td>
-								<td>
-									<input name="house-numeric" type="text" id="house-numeric"></input>
-									<select name="house-alpha" id="house-alpha">
+                            <tr>
+                                <td>
+                                    House
+                                </td>
+                                <td>
+                                    <input name="house-numeric" type="text" id="house-numeric">
+                                    </input>
+                                    <select name="house-alpha" id="house-alpha">
                                         <option>A</option>
                                         <option>B</option>
                                         <option>C</option>
@@ -256,12 +282,17 @@
                                         <option>O</option>
                                         <option>P</option>
                                     </select>
-								</td>
-							</tr>
-							<tr id="unit">
-								<td>Unit</td>
-								<td><input name="unit" type="text" ></input></td>
-							</tr>
+                                </td>
+                            </tr>
+                            <tr id="unit">
+                                <td>
+                                    Unit
+                                </td>
+                                <td>
+                                    <input name="unit" type="text">
+                                    </input>
+                                </td>
+                            </tr>
                         </table>
                     </form>
                 </p>
