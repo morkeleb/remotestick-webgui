@@ -115,22 +115,6 @@
                             
                         });
                         
-                        var dev = new device(2222, "testset", "ON", true);
-                        devices.push(dev);
-                        var temp = template(dev);
-                        
-                        
-                        $('#devices').append(temp);
-                        $("#radio" + 2222).buttonset();
-                        $('#dim' + 2222).slider({
-                            min: 0,
-                            max: 100,
-                            slide: function(event, ui){
-                                dim(id, ui.value);
-                            },
-                            range: "min"
-                        });
-                        
                         
                     }
                 });
