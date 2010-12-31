@@ -7,9 +7,10 @@
         </script>
         <script src="theme/js/jquery-ui-1.8.7.custom.min.js">
         </script>
-		<link REL="StyleSheet" type="text/css" href="theme/css/dark-hive/jquery-ui-1.8.7.custom.css"></link>
-				<link REL="StyleSheet" type="text/css" href="style.css"></link>
-
+        <link REL="StyleSheet" type="text/css" href="theme/css/dark-hive/jquery-ui-1.8.7.custom.css">
+        </link>
+        <link REL="StyleSheet" type="text/css" href="style.css">
+        </link>
         <script type="text/html" id="device_list_template">
             <div class="device-list-border">
                 <div class="device-list-description">
@@ -18,102 +19,166 @@
                 <div class="device-list-controls">
                     <div class="onOff">
                         <div id="radio<%=obj.id%>">
-                            <input type="radio" id="off<%=obj.id%>" name="radio<%=obj.id%>"  <% if(obj.last_command != "ON") {  %> checked="checked" <%}%> onclick="turnOff(<%=obj.id%>);"/>
+                            <input type="radio" id="off<%=obj.id%>" name="radio<%=obj.id%>"<% if(obj.last_command != "ON") { %> checked="checked"<%} %>onclick="turnOff(<%=obj.id %>);"/>
                             <label for="off<%=obj.id%>">
                                 Off
                             </label>
-                            <input type="radio" id="on<%=obj.id%>" name="radio<%=obj.id%>"  <% if(obj.last_command == "ON") {  %> checked="checked" <%}%> onclick="turnOn(<%=obj.id%>);"  />
+                            <input type="radio" id="on<%=obj.id%>" name="radio<%=obj.id%>"<% if(obj.last_command == "ON") { %> checked="checked"<%} %>onclick="turnOn(<%=obj.id %>);"  />
                             <label for="on<%=obj.id%>">
                                 On
                             </label>
                         </div>
                     </div>
-					<% if(obj.dimmer) { %>
+                    <% if(obj.dimmer) { %>
                     <div class="slide" id="dim<%=obj.id%>">
                     </div>
-					<% } %>
-					<dir class="clear"></dir>
+                    <% } %>
+                    <dir class="clear">
+                    </dir>
                 </div>
             </div>
         </script>
-		<script type="text/javascript">
-			function turnOn(id) {
-				$.ajax({
-						url: "../devices/" + id + "/on.xml"
-					});
-			}
-			function turnOff(id) {
-				$.ajax({
-						url: "../devices/" + id + "/off.xml"
-					});
-			}
-			function dim(id, level) {
-				$.ajax({
-						url: "../devices/" + id + "/dim/level.xml"
-					});
-			}
-			function device(id, description, last_command, dimmer ) {
-				var self = this;
-				self.description = description;
-				self.id = id;
-				self.last_command = last_command;
-				self.dimmer = dimmer;
-				return self;
-			}
-			
-			function loadDevices() {
-				var template = window.tmpl("device_list_template");
-				
-				$('#devices').html('');
-				$.ajax({url:"../devices.xml", success:function(xml) {
-					$(xml).find('device').each(function() {
-						var d = $(this);
-						var id = d.attr("id");
-						var lastcmd = d.find('lastcmd').text();
-						var description = d.find('name').text();
-						var dimmer = false;
-						d.find('supportedMethod').each(function() {
-							var m = $(this);
-							if(m.text() == "TELLSTICK_DIM") { dimmer = true;}
-						});
-						
-						var dev = new device(id, description, lastcmd, dimmer);
-						var temp = template(dev);
-						
-						
-						$('#devices').append(temp);
-						$("#radio"+id).buttonset();
-						$('#dim'+id).slider({ min:0, max:100, slide:function(event, ui){ dim(id, ui.value);}, range:"min"});
-							
-					})
-					
-				}})
-				
-		        
-			}
-		
-		</script>
+        <script type="text/javascript">
+            function turnOn(id){
+                $.ajax({
+                    url: "../devices/" + id + "/on.xml"
+                });
+            };
+            function turnOff(id){
+                $.ajax({
+                    url: "../devices/" + id + "/off.xml"
+                });
+            };
+            function dim(id, level){
+                $.ajax({
+                    url: "../devices/" + id + "/dim/level.xml"
+                });
+            };
+            function device(id, description, last_command, dimmer){
+                var self = this;
+                self.description = description;
+                self.id = id;
+                self.last_command = last_command;
+                self.dimmer = dimmer;
+                return self;
+            };
+            
+            function turnAllOn(){
+                $(devices).each(function(index, value){
+                    turnOn(value.id);
+                });
+            };
+            
+            function turnAllOff(){
+                $(devices).each(function(index, value){
+                    turnOff(value.id);
+                });
+            };
+            
+            var devices = new Array();
+            
+            function loadDevices(){
+                var template = window.tmpl("device_list_template");
+                
+                $('#devices').html('');
+                $.ajax({
+                    url: "../devices.xml",
+                    success: function(xml){
+                        $(xml).find('device').each(function(){
+                            var d = $(this);
+                            var id = d.attr("id");
+                            var lastcmd = d.find('lastcmd').text();
+                            var description = d.find('name').text();
+                            var dimmer = false;
+                            d.find('supportedMethod').each(function(){
+                                var m = $(this);
+                                if (m.text() == "TELLSTICK_DIM") {
+                                    dimmer = true;
+                                }
+                            });
+                            
+                            var dev = new device(id, description, lastcmd, dimmer);
+                            devices.push(dev);
+                            var temp = template(dev);
+                            
+                            
+                            $('#devices').append(temp);
+                            $("#radio" + id).buttonset();
+                            $('#dim' + id).slider({
+                                min: 0,
+                                max: 100,
+                                slide: function(event, ui){
+                                    dim(id, ui.value);
+                                },
+                                range: "min"
+                            });
+                            
+                        });
+                        
+                        var dev = new device(2222, "testset", "ON", true);
+                        devices.push(dev);
+                        var temp = template(dev);
+                        
+                        
+                        $('#devices').append(temp);
+                        $("#radio" + 2222).buttonset();
+                        $('#dim' + 2222).slider({
+                            min: 0,
+                            max: 100,
+                            slide: function(event, ui){
+                                dim(id, ui.value);
+                            },
+                            range: "min"
+                        });
+                        
+                        
+                    }
+                });
+                
+                
+            };
+            
+        </script>
         <script type="text/javascript">
             $(function(){
-        		loadDevices();		
+                loadDevices();
+                $("#turnAllOff").button();
+                $("#turnAllOff").click(function(){
+                    turnAllOff();
+                });
+                $("#addDevice").button();
+                $("#turnAllOn").button();
+                $("#turnAllOn").click(function(){
+                    turnAllOn();
+                });
             });
         </script>
-    </head>
-    <body>
-        <div id="devices" class="device-list"></div>
-        <div class="links">
-            <h3>REST API Documentation</h3>
-            <ul>
-                <li>
-                    <a href="https://github.com/pakerfeldt/remotestick/wiki/REST-API">Api</a>
-                </li>
-                <li>
-                    <a href="https://github.com/pakerfeldt/remotestick/wiki/REST-API:-Devices">Devices</a>
-                </li>
-                <li>
-                    <a href="https://github.com/pakerfeldt/remotestick/wiki/REST-API:-Methods">Methods</a>
-                </li>
-            </ul>
-        </div>
-    </body>
-</html>
+        </head>
+        <body>
+            <div class="header">
+                <div class="left">
+                    <div class="button" id="turnAllOff">
+                        All Off
+                    </div>
+                </div>
+                <div class="center">
+                    <div class="button" id="addDevice">
+                        Add
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="button" id="turnAllOn">
+                        All On
+                    </div>
+                </div>
+                <div class="headerbottom"></div>
+            </div>
+            <div id="devices" class="device-list">
+            </div>
+            <div class="links">
+                <a href="https://github.com/pakerfeldt/remotestick/wiki/REST-API">Api</a>
+                <a href="https://github.com/pakerfeldt/remotestick/wiki/REST-API:-Devices">Devices</a>
+                <a href="https://github.com/pakerfeldt/remotestick/wiki/REST-API:-Methods">Methods</a>
+            </div>
+        </body>
+    </html>

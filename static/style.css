@@ -1,6 +1,8 @@
 body {
 	background-color: #373737;
 	color: white;
+	padding: 0pt;
+	margin:0pt;
 }
 .clear {
 	clear:both;
@@ -28,9 +30,46 @@ body {
 	
 }
 .device-list {
-	float: left;
-	width: 300pt;
+	clear:both;
+	width: 100%;
+	max-width: 300pt;
 }
+
 .links {
-	float: right;	
+	text-align: center;	
+}
+.header {
+	
+}
+
+.right {
+	float: right;
+	text-align: right;
+	width:33%
+}
+
+.left {
+	float: left;
+	text-align: left;
+	width:33%
+}
+
+.center {
+	float: left;
+	text-align: center;
+	width:33%
+}
+
+.button  {
+	margin: 5pt;
+}
+
+.header {
+	background-color: black;
+	
+	width:100%
+	padding: 5pt;
+}
+.headerbottom {
+	clear:both;
 }
