@@ -8,6 +8,17 @@
         </script>
         <script src="theme/js/jquery-ui-1.8.7.custom.min.js">
         </script>
+        <script type="text/javascript">
+            var jseaHost = (("https:" == document.location.protocol) ? "https://" : "http://");
+            document.write(unescape("%3Cscript src='" + jseaHost + "js-e-a.appspot.com/js/monitor.js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript">
+            window.JSAMonitor = new JSEAMonitor({
+                pid: 478001,
+                useGlobalErrorEvent: true,
+                useJQuery: true
+            });
+        </script>
         <link REL="StyleSheet" type="text/css" href="theme/css/dark-hive/jquery-ui-1.8.7.custom.css">
         </link>
         <link REL="StyleSheet" type="text/css" href="style.css">
@@ -141,15 +152,15 @@
                 var name = $('#name').val();
                 var house = ((model == "codeswitch" || model == "bell") ? $('#house-alpha option:selected').val() : $('#house-numeric').val());
                 var unit = model == "bell" ? null : $("#unitvalue").val();
-				var parameters = ""
-				
-				parameters = "house="+house;
-				
-				if(unit != null) 
-					parameters += " unit="+unit;
-						
-				
-					 
+                var parameters = ""
+                
+                parameters = "house=" + house;
+                
+                if (unit != null) 
+                    parameters += " unit=" + unit;
+                
+                
+                
                 postDevice({
                     id: id,
                     name: name,
@@ -161,7 +172,7 @@
                         modal: true,
                         buttons: {
                             Ok: function(){
-								loadDevices();
+                                loadDevices();
                                 $(this).dialog("close");
                             }
                         }
