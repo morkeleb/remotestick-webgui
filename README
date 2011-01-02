@@ -26,6 +26,9 @@ in version 0.4 of the remotestick-server you need to specify "-f static" in the 
 
 That is given that you do not configure remotestick-server to run on a different port.
 
+v0.3
+Fixed the links at the bottom of the page.
+
 v0.2
 Made better support for mobile browsers
 added buttons to turn on or off all devices
