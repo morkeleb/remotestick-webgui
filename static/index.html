@@ -118,11 +118,11 @@
                             $("#radio" + id).buttonset();
                             $('#dim' + id).slider({
                                 min: 0,
-                                max: 100,
-                                slide: function(event, ui){
-                                    dim(id, ui.value);
-                                },
-                                range: "min"
+                                max: 255,
+								step:25.5,
+                                change: function(event, ui){
+                                    dim(id, Math.ceil(ui.value));
+                                }
                             });
                             
                         });
