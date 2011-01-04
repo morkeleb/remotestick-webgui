@@ -28,6 +28,7 @@ That is given that you do not configure remotestick-server to run on a different
 
 v0.3
 Fixed the links at the bottom of the page.
+Fixed max value of dimmers and also that the dimmers could overdoze the server on dim events
 
 v0.2
 Made better support for mobile browsers
