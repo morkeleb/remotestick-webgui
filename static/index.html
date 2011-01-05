@@ -120,8 +120,10 @@
                                 min: 0,
                                 max: 255,
 								step:25.5,
+								range: "min",
                                 change: function(event, ui){
                                     dim(id, Math.ceil(ui.value));
+									$('#dim' + id).mouseup();
                                 }
                             });
                             
